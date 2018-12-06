@@ -120,15 +120,11 @@ static int astbmc_fru_init(void)
 
 void astbmc_init(void)
 {
-	/* Register the BT interface with the IPMI layer
-	 *
-	 * Initialise this first to enable PNOR access
-	 */
-	bt_init();
-
 	/* Initialize PNOR/NVRAM */
 	pnor_init();
 
+	/* Register the BT interface with the IPMI layer */
+	bt_init();
 	/* Initialize elog */
 	elog_init();
 	ipmi_sel_init();
@@ -425,6 +421,8 @@ void astbmc_early_init(void)
 
 	/* Setup UART and use it as console */
 	uart_init();
+
+	mbox_init();
 
 	prd_init();
 }
